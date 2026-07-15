@@ -56,7 +56,7 @@ function securityHeaders() {
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://*.supabase.co",
       "connect-src 'self' https://*.supabase.co https://nominatim.openstreetmap.org wss://*.supabase.co",
-      "frame-src https://www.youtube.com https://maps.google.com https://*.basemaps.cartocdn.com",
+      "frame-src https://www.youtube.com https://maps.google.com https://www.google.com https://*.basemaps.cartocdn.com",
       "media-src 'self'",
       "object-src 'none'",
       "base-uri 'self'",

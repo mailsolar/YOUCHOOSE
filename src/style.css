@@ -262,15 +262,15 @@ body::after {
 
 /* Login button — scrolled (light bg) state */
 #header.scrolled #header-login-btn {
-  background: var(--charcoal);
-  border-color: var(--charcoal);
-  color: var(--cream);
-  box-shadow: 0 4px 16px rgba(12, 10, 8, 0.15);
+  background: var(--charcoal) !important;
+  border-color: var(--charcoal) !important;
+  color: var(--cream) !important;
+  box-shadow: 0 4px 16px rgba(12, 10, 8, 0.15) !important;
 }
 #header.scrolled #header-login-btn:hover {
-  background: var(--ink);
-  border-color: var(--ink);
-  box-shadow: 0 6px 20px rgba(12, 10, 8, 0.2);
+  background: var(--ink) !important;
+  border-color: var(--ink) !important;
+  box-shadow: 0 6px 20px rgba(12, 10, 8, 0.2) !important;
 }
 
 .logo-text { 
