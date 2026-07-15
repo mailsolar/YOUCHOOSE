@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YOUCHOOSE — Your Profile</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="bg-yc-cream text-yc-textmain font-sans antialiased min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-yc-lavender/30 bg-white px-6 py-4 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="/" class="font-serif text-xl text-yc-navy">YouChoose.</a>
+      <div class="flex items-center gap-4">
+        <a href="/" class="text-sm font-medium text-yc-navy hover:text-yc-gold transition-colors">Back to Discover</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
+    
+    <!-- Sidebar / Avatar -->
+    <div class="w-full md:w-64 flex-shrink-0">
+      <div class="bg-white rounded-3xl p-6 shadow-soft text-center border border-yc-lavender/30 relative">
+        <div class="w-24 h-24 mx-auto rounded-full bg-yc-gold text-yc-navy flex items-center justify-center font-serif text-3xl font-bold shadow-sm relative group overflow-hidden mb-4" id="profile-avatar-container">
+          <span id="profile-initial">?</span>
+          <!-- Upload overlay -->
+          <div class="absolute inset-0 bg-yc-navy/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-white" id="upload-overlay">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            <span class="text-[9px] font-medium uppercase tracking-wider">Change</span>
+            <input type="file" id="avatar-upload" class="absolute inset-0 opacity-0 cursor-pointer" accept="image/png, image/jpeg" />
+          </div>
+        </div>
+        
+        <h2 id="profile-name-display" class="font-serif text-xl text-yc-navy mb-1">User Name</h2>
+        <p id="profile-email-display" class="text-xs text-yc-textmuted mb-4 truncate">email@example.com</p>
+        
+        <a href="/admin.html" id="profile-admin-btn" class="hidden w-full px-4 py-2 bg-yc-navy text-white text-sm font-medium rounded-full hover:bg-yc-navy/90 transition-all shadow-sm mb-3">
+          Go to Admin Panel
+        </a>
+        
+        <button id="profile-logout-btn" class="w-full px-4 py-2 text-yc-textmuted hover:text-red-500 text-sm font-medium transition-colors">
+          Log Out
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1">
+      
+      <!-- Account Details -->
+      <section class="mb-10">
+        <h3 class="font-serif text-2xl text-yc-navy mb-6">Account Details</h3>
+        <form id="profile-form" class="space-y-4 max-w-md">
+          <div>
+            <label class="block text-xs font-semibold text-yc-textmuted uppercase tracking-wider mb-2">Display Name</label>
+            <input type="text" id="profile-name" class="w-full bg-white border border-yc-lavender rounded-xl py-3 px-4 text-yc-navy text-sm outline-none focus:border-yc-softpurple focus:ring-2 focus:ring-yc-softpurple/20 transition-all" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-yc-textmuted uppercase tracking-wider mb-2">Email Address</label>
+            <input type="email" id="profile-email" disabled class="w-full bg-yc-cream border border-yc-lavender/50 rounded-xl py-3 px-4 text-yc-textmuted text-sm outline-none cursor-not-allowed" />
+          </div>
+          <button type="submit" id="profile-save-btn" class="px-6 py-2.5 bg-yc-navy text-white text-sm font-medium rounded-full hover:bg-yc-navy/90 transition-all shadow-sm">
+            Save Changes
+          </button>
+          <span id="profile-status" class="ml-3 text-sm text-green-600 hidden">Saved!</span>
+        </form>
+      </section>
+
+      <!-- Taste Preferences -->
+      <section>
+        <h3 class="font-serif text-2xl text-yc-navy mb-2">Your Taste Preferences</h3>
+        <p class="text-sm text-yc-textmuted mb-6">We use this to recommend the perfect spots for you.</p>
+        
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-soft border border-yc-lavender/30">
+          <div class="flex flex-wrap gap-3" id="taste-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  </main>
+
+  <!-- Avatar Selector Modal -->
+  <div id="avatar-modal-overlay" class="fixed inset-0 bg-yc-navy/80 backdrop-blur-sm z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 px-4">
+    <div id="avatar-modal-panel" class="bg-white rounded-3xl w-full max-w-md p-8 shadow-elegant scale-95 opacity-0 transition-all duration-300 relative">
+      <button id="avatar-modal-close" type="button" class="absolute top-6 right-6 text-yc-textmuted hover:text-yc-navy transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+      
+      <h3 class="font-serif text-2xl text-yc-navy mb-2">Update Avatar</h3>
+      <p class="text-sm text-yc-textmuted mb-6">Choose a beautiful animated preset or upload your own.</p>
+      
+      <div class="grid grid-cols-3 gap-4 mb-8" id="preset-avatars-grid">
+        <!-- Rendered by JS -->
+      </div>
+      
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+          <div class="w-full border-t border-yc-lavender"></div>
+        </div>
+        <div class="relative flex justify-center">
+          <span class="bg-white px-3 text-xs text-yc-textmuted uppercase tracking-wider font-medium">Or</span>
+        </div>
+      </div>
+      
+      <div class="mt-6">
+        <label for="avatar-upload-file" class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-yc-lavender hover:border-yc-softpurple rounded-2xl cursor-pointer bg-yc-cream hover:bg-yc-lavender/20 transition-colors">
+          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <svg class="w-6 h-6 text-yc-textmuted mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+            <p class="text-xs text-yc-textmuted"><span class="font-semibold text-yc-navy">Click to upload</span> your own photo</p>
+          </div>
+          <input id="avatar-upload-file" type="file" class="hidden" accept="image/png, image/jpeg, image/webp" />
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/profile.js"></script>
+</body>
+</html>

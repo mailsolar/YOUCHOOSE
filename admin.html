@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YOUCHOOSE — Admin Panel</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="bg-yc-navy text-white font-sans antialiased min-h-screen">
+
+  <!-- ═══ ADMIN DASHBOARD (shown when authenticated + admin) ═══ -->
+  <div id="admin-dashboard" class="min-h-screen">
+    
+    <!-- Header -->
+    <header class="border-b border-white/5 px-6 py-4">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="/" class="font-serif text-xl text-white">YouChoose.</a>
+          <span class="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-yc-gold/20 text-yc-gold">Admin</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span id="admin-email" class="text-xs text-white/40"></span>
+          <button id="logout-btn" class="text-xs text-white/40 hover:text-white transition-colors underline">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="max-w-6xl mx-auto px-6 py-10">
+      
+      <!-- Quota + Scrape Button Row -->
+      <div class="grid md:grid-cols-2 gap-6 mb-10">
+        
+        <!-- Scrape Button Card -->
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-8 flex flex-col items-center justify-center text-center">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-white/40 mb-6">Scrape Control</h3>
+          
+          <button id="scrape-btn" disabled
+            class="w-48 h-48 rounded-full flex flex-col items-center justify-center gap-3 transition-all duration-500 shadow-lg disabled:cursor-not-allowed relative overflow-hidden group">
+            <!-- Glow ring animation -->
+            <div id="btn-glow" class="absolute inset-0 rounded-full opacity-0 transition-opacity duration-1000"></div>
+            <svg class="w-10 h-10 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span id="btn-label" class="text-sm font-semibold relative z-10">Loading...</span>
+          </button>
+
+          <div class="w-full max-w-xs mt-6 opacity-0 transition-opacity duration-500" id="btn-quota-container">
+            <div class="flex justify-between text-xs font-medium text-white/60 mb-2">
+              <span>API Quota Used</span>
+              <span id="btn-quota-text">-- / 1500</span>
+            </div>
+            <div class="w-full h-2 bg-white/[0.05] rounded-full overflow-hidden shadow-inner">
+              <div id="btn-quota-bar" class="h-full rounded-full transition-all duration-700 ease-out bg-emerald-500" style="width: 0%"></div>
+            </div>
+            <p id="btn-status-reset" class="text-[10px] uppercase tracking-wider text-white/30 mt-3 text-center">Resets at --</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p id="stat-restaurants" class="text-3xl font-bold text-white">--</p>
+          <p class="text-[10px] uppercase tracking-wider text-white/30 mt-1">Restaurants</p>
+        </div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p id="stat-reviews" class="text-3xl font-bold text-white">--</p>
+          <p class="text-[10px] uppercase tracking-wider text-white/30 mt-1">Reviews</p>
+        </div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p id="stat-scraped" class="text-3xl font-bold text-white">--</p>
+          <p class="text-[10px] uppercase tracking-wider text-white/30 mt-1">URLs Processed</p>
+        </div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center">
+          <p id="stat-jobs" class="text-3xl font-bold text-white">--</p>
+          <p class="text-[10px] uppercase tracking-wider text-white/30 mt-1">Jobs Run</p>
+        </div>
+      </div>
+
+      <!-- Recent Jobs Table -->
+      <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl overflow-hidden">
+        <div class="px-6 py-4 border-b border-white/[0.06]">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-white/40">Recent Scrape Jobs</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-[10px] uppercase tracking-wider text-white/30 border-b border-white/[0.04]">
+                <th class="px-6 py-3 text-left">Status</th>
+                <th class="px-6 py-3 text-left">Date</th>
+                <th class="px-6 py-3 text-center">Processed</th>
+                <th class="px-6 py-3 text-center">Added</th>
+                <th class="px-6 py-3 text-left">Notes</th>
+              </tr>
+            </thead>
+            <tbody id="jobs-table" class="divide-y divide-white/[0.04]">
+              <tr><td colspan="5" class="px-6 py-8 text-center text-white/20 text-xs">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script type="module" src="/src/admin.js"></script>
+</body>
+</html>

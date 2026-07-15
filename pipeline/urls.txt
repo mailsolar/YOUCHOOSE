@@ -1,0 +1,79 @@
+# YOUCHOOSE — Video URLs to Process
+# One URL per line. Lines starting with # are ignored.
+# Supports: YouTube, Instagram Reels, TikTok
+
+# ── EXAMPLES (replace with real food review URLs) ─────────────
+# https://www.youtube.com/watch?v=XXXXXXXXXXX
+# https://www.instagram.com/reel/XXXXXXXXXXX/
+# https://www.tiktok.com/@creator/video/XXXXXXXXXXX
+
+# ── ADD YOUR URLS BELOW ───────────────────────────────────────
+
+# Living at Airport Food For 24 Hours 😱😱 | Bangalore 080 Lounge Review 😍
+https://www.youtube.com/watch?v=TRiiexOiqE8
+# My TAKEAWAY OF THE YEAR 2024 | Carnivorez Wood Fire Grill | FOOD VLOG
+https://www.youtube.com/watch?v=rtSegqzbfNU
+# QUEENSTOWN FOOD & Coffee Vlog | Lots Has Changed!
+https://www.youtube.com/watch?v=SaMs6I26ruk
+# Al Shazzam | Global Village 2025 | Food Vlog | Vlog 74 | DXB | Malayalam
+https://www.youtube.com/watch?v=xCdE-wEphjo
+# World’s Best Vegetarian Food - $2.78 All You Can Eat!! | Banana Leaf Sadhya - Kerala, India!
+https://www.youtube.com/watch?v=eEN4PqP7lno
+# Food Vlog: The Luxury BLEW ME OFF!! Burma Burma Restaurant review | New Vlog Video 2024
+https://www.youtube.com/watch?v=R4brMleL8UE
+# YOU Decided What I Ate For 24 Hours In Abu Dhabi
+https://www.youtube.com/watch?v=dxNpa9ro0zE
+# Al Reef Restaurant Review | Chennai Series 2024 - Vlog 1
+https://www.youtube.com/watch?v=XRGP9Lg7CPo
+# FAMOUS SEAFOOD THALI IN GOA | FAT FISH RESTAURANT REVIEW | GOA FOOD VLOG 2024 | CALANGUTE
+https://www.youtube.com/watch?v=_a8Fps8eZdw
+# Reviewing Mark Wiens' Restaurant!! He Tried to Kill Me!!
+https://www.youtube.com/watch?v=G3ticHfFo2Q
+# WORLD'S BIGGEST PAD KRAPOW ft @MarkWiens at PhedMark Bangkok! | MY SPICIEST FOOD CHALLENGE EVER!
+https://www.youtube.com/watch?v=-4myoQ2rIIA
+# Trying the SPICIEST Dish at MARK WIENS’s Bangkok Restaurant 🌶
+https://www.youtube.com/watch?v=Mp5LQHwXw2Q
+# Trying All Spice Levels At Mark Wiens’ Restaurant, PHED MARK Bangkok! Must Try Pad Kaprao!
+https://www.youtube.com/watch?v=2d_hWT7ufXk
+# Eating Thai Food With Mark Wiens at Phed Mark!! 🇹🇭
+https://www.youtube.com/watch?v=JLiX9TnvyMU
+# Hong Kong $100 Street Food Challenge!! We Finally Did It!!
+https://www.youtube.com/watch?v=7OZyRM3PMG4
+# $100 Vietnamese Night Market Challenge!! Super CHEAP Street Food in Saigon!!
+https://www.youtube.com/watch?v=JLIIR-KrsSY
+# Korean Street Food After Dark!! The Freaks Come Out At Night!!
+https://www.youtube.com/watch?v=x76t-l69_6E
+# Vietnam $100 Street Food Challenge!! Best Street Food in Saigon!!!
+https://www.youtube.com/watch?v=767xPIjTm2A
+# $100 Japanese Street Food Challenge in Kyoto!!
+https://www.youtube.com/watch?v=feuv2_fmRC4
+# Best Restaurant in Andheri East? Full Tour of Cray Craft Mumbai | Food + Ambience + Price
+https://www.youtube.com/watch?v=ZYPZZ2x7hFQ
+# Mumbai’s Only Pure-Veg Multi-Cuisine Restaurant 2025 | Food Review & Must-Try Dishes
+https://www.youtube.com/watch?v=8UuB91ZNQCA
+# This Mumbai Restaurant Will Surprise You! Kona Kona Food Review | Andheri West 😳
+https://www.youtube.com/watch?v=RRS-vcwLTzY
+# DELICIOUS Asian Food at FOO restaurant in Mumbai | Dim Sums, Noodles, Dessert Platter & more
+https://www.youtube.com/watch?v=eHxQFNSkNeE
+# BEST Gujarati Food in Mumbai 🤔 Premium restaurant in South Mumbai with a *unique touch*
+https://www.youtube.com/watch?v=wpfjvgwUswY
+# How TikTok Food Critic Keith Lee Resuscitated a Struggling Restaurant
+https://www.youtube.com/watch?v=DIcFLgJ6gME
+# Las Vegas restaurant goes from no customers to sold out after viral TikTok
+https://www.youtube.com/watch?v=XJh0bSosYoo
+# Keith Lee Rating your Restaurant
+https://www.youtube.com/watch?v=ERDoZV5CJGg
+# Investigating Keith Lee's HIGHEST Rated Restaurant
+https://www.youtube.com/watch?v=h06VvyNSf7o
+# How Keith Lee Accidentally DESTROYED a Restaurant
+https://www.youtube.com/watch?v=v9bHYCtTEm0
+# Exposing GORDON RAMSAY India Restaurant
+https://www.youtube.com/watch?v=8jG92V0ksjM
+# Inside Saba Ibrahim’s New Restaurant Khushamadeed, Delhi | Full Restaurant Tour & Honest Food Review
+https://www.youtube.com/watch?v=tEllMat9jFw
+# Testing Restaurants With 0 Google Reviews
+https://www.youtube.com/watch?v=Q-GPWgthZA8
+# We tried the best Indian restaurant in the world (Gordon Ramsey's Favorite!)
+https://www.youtube.com/watch?v=gky_Wc7xV0Q
+# How Rameshwaram Cafe Built a ₹60 Crore Dosa Empire! | Stories From Bharat Ep 44 | Curly Tales
+https://www.youtube.com/watch?v=ujCGvZoFdOo
