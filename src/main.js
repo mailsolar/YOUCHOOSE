@@ -796,7 +796,7 @@ function initMap(lat, lng, name, city) {
             scrolling="no" 
             marginheight="0" 
             marginwidth="0" 
-            src="https://maps.google.com/maps?width=100%25&amp;height=100%25&amp;hl=en&amp;q=${query}&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+            src="https://www.google.com/maps?width=100%25&amp;height=100%25&amp;hl=en&amp;q=${query}&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
           </iframe>`;
         }
       })
@@ -808,7 +808,7 @@ function initMap(lat, lng, name, city) {
           scrolling="no" 
           marginheight="0" 
           marginwidth="0" 
-          src="https://maps.google.com/maps?width=100%25&amp;height=100%25&amp;hl=en&amp;q=${query}&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+          src="https://www.google.com/maps?width=100%25&amp;height=100%25&amp;hl=en&amp;q=${query}&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
         </iframe>`;
       });
   }
