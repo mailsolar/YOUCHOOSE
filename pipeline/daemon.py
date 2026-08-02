@@ -39,7 +39,11 @@ from scrape import QuotaExhaustedError
 load_dotenv(Path(__file__).parent / ".env")
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
-SUPABASE_KEY = os.getenv("SUPABASE_ANON_KEY", "")
+# Use service role key to bypass RLS for pipeline writes
+SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY") or os.getenv("SUPABASE_ANON_KEY", "")
+
+if not os.getenv("SUPABASE_SERVICE_KEY"):
+    print("[DAEMON] WARNING: SUPABASE_SERVICE_KEY not set. Using anon key — DB writes may fail due to RLS policies.")
 
 HEADERS = {
     "apikey": SUPABASE_KEY,
@@ -363,36 +367,22 @@ def hibernate():
     """Sleep until quota resets at midnight UTC."""
     sleep_seconds = calculate_sleep_until_reset()
     hours = sleep_seconds // 3600
-    minutes = (sleep_seconds % 3600) // 60
-
-    reset_time = datetime.now(timezone.utc) + timedelta(seconds=sleep_seconds)
-    reset_ist = reset_time + timedelta(hours=5, minutes=30)
-
-    print(f"\n{'='*60}")
-    print(f"[DAEMON] HIBERNATING...")
-    print(f"[DAEMON]    Sleeping for {hours}h {minutes}m")
-    print(f"[DAEMON]    Will wake at {reset_ist.strftime('%I:%M %p IST')} ({reset_time.strftime('%H:%M UTC')})")
-    print(f"{'='*60}\n")
-
-    # Sleep in 60-second chunks so we can respond to Ctrl+C
-    elapsed = 0
-    while elapsed < sleep_seconds and running:
-        time.sleep(min(60, sleep_seconds - elapsed))
-        elapsed += 60
-
-    if running:
-        print(f"\n[DAEMON] Waking up! New day, fresh quota. Let's go!\n")
-
-
 # -------------------------------------------------------------
 # MAIN LOOP
 # -------------------------------------------------------------
 def main():
     manual_only = "--manual" in sys.argv
+    once_mode   = "--once"   in sys.argv   # GitHub Actions / CI mode
+
+    mode_label = (
+        "Once (CI/GitHub Actions — exit when quota exhausted)"
+        if once_mode else
+        ("Manual (admin jobs only)" if manual_only else "Autonomous (infinite loop)")
+    )
 
     print(f"+{'='*58}+")
     print(f"|  YOUCHOOSE - Autonomous Scrape Daemon v2                |")
-    print(f"|  Mode: {'Manual (admin jobs only)' if manual_only else 'Autonomous (infinite loop)'}{'':>20}|" if manual_only else f"|  Mode: Autonomous (infinite loop)                        |")
+    print(f"|  Mode: {mode_label[:50]:<50}|")
     print(f"|  Press Ctrl+C to stop gracefully                        |")
     print(f"+{'='*58}+\n")
 
@@ -424,15 +414,25 @@ def main():
             result = run_scrape_cycle()
 
             if result == -1:
-                # Quota exhausted — hibernate until reset
-                hibernate()
+                # Quota exhausted
+                if once_mode:
+                    # GitHub Actions / CI: just exit — scheduler will re-run tomorrow
+                    print("\n[DAEMON] Quota exhausted. Exiting (CI mode — will resume tomorrow).")
+                    sys.exit(0)
+                else:
+                    # Server daemon: hibernate until reset
+                    hibernate()
             elif result == -2:
-                # All queries used within 30 days — sleep for 6 hours and recheck
-                print("[DAEMON] All queries recycled recently. Sleeping 6 hours...")
-                for _ in range(360):  # 6 hours in 60-second chunks
-                    if not running:
-                        break
-                    time.sleep(60)
+                # All queries used within 30 days
+                if once_mode:
+                    print("[DAEMON] All queries recycled recently. Nothing to do today. Exiting.")
+                    sys.exit(0)
+                else:
+                    print("[DAEMON] All queries recycled recently. Sleeping 6 hours...")
+                    for _ in range(360):  # 6 hours in 60-second chunks
+                        if not running:
+                            break
+                        time.sleep(60)
             else:
                 # Brief pause between cycles to be polite
                 print(f"[DAEMON] Pausing 10s before next cycle...")

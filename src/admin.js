@@ -11,10 +11,9 @@ const $ = (s) => document.querySelector(s);
 const $$ = (s) => [...document.querySelectorAll(s)];
 
 // ─────────────────────────────────────────────
-// ADMIN CONFIG
+// ADMIN CONFIG — email loaded from env, never in source
 // ─────────────────────────────────────────────
-const ADMIN_EMAIL = 'deepaknair1104@gmail.com';
-// Note: password is managed entirely by Supabase Auth — never stored here.
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL || '';
 
 let isAuthenticated = false;
 
@@ -22,26 +21,36 @@ let isAuthenticated = false;
 // AUTH
 // ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
+  // Validate admin email is configured
+  if (!ADMIN_EMAIL) {
+    window.location.replace('/');
+    return;
+  }
+
   // Check if authenticated in Supabase
   const { data: { session } } = await supabase.auth.getSession();
-  
+
   if (session && session.user.email === ADMIN_EMAIL) {
     showDashboard();
   } else {
-    // Show login form (redirect to home to login)
-    window.location.href = '/';
+    // Not authenticated — hard redirect, no flash
+    window.location.replace('/');
+    return;
   }
 
   // Logout
   $('#logout-btn')?.addEventListener('click', async () => {
     await supabase.auth.signOut();
-    window.location.href = '/';
+    window.location.replace('/');
   });
 });
 
 
 function showDashboard() {
   isAuthenticated = true;
+  // Reveal dashboard only now — was hidden by CSS
+  const dash = $('#admin-dashboard');
+  if (dash) dash.style.display = 'block';
   $('#admin-email').textContent = ADMIN_EMAIL;
 
   // Load all dashboard data
@@ -155,7 +164,7 @@ async function triggerScrape() {
     label.textContent = 'Job Created!';
   } catch (e) {
     label.textContent = 'Error';
-    console.error('Failed to create job:', e);
+    void /* error suppressed */('Failed to create job:', e);
   }
 
   setTimeout(loadJobs, 1000);
