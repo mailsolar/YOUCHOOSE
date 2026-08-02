@@ -97,6 +97,7 @@ def extract_video_data(url: str) -> dict:
     with tempfile.TemporaryDirectory() as tmpdir:
         cmd = [
             "yt-dlp",
+            "--extractor-args", "youtube:player_client=ios,mweb,tv",
             "--write-auto-subs",
             "--sub-format", "vtt",
             "--skip-download",
@@ -134,6 +135,7 @@ def extract_video_data(url: str) -> dict:
             os.close(fd)
             audio_cmd = [
                 "yt-dlp",
+                "--extractor-args", "youtube:player_client=ios,mweb,tv",
                 "-f", "bestaudio",
                 "--extract-audio",
                 "--audio-format", "mp3",

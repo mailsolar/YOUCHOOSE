@@ -42,6 +42,7 @@ def search_youtube(query: str, count: int = 10) -> list[str]:
 
     cmd = [
         "yt-dlp",
+        "--extractor-args", "youtube:player_client=ios,mweb,tv",
         "--flat-playlist",
         "--dump-json",
         "--no-warnings",
