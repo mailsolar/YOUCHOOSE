@@ -36,7 +36,7 @@ class QuotaExhaustedError(Exception):
 load_dotenv(Path(__file__).parent / ".env")
 
 SUPABASE_URL    = os.getenv("SUPABASE_URL", "").rstrip("/")
-SUPABASE_KEY    = os.getenv("SUPABASE_ANON_KEY", "")
+SUPABASE_KEY    = os.getenv("SUPABASE_SERVICE_KEY") or os.getenv("SUPABASE_ANON_KEY", "")
 GEMINI_API_KEY  = os.getenv("GEMINI_API_KEY", "")
 
 HEADERS = {
